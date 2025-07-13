@@ -67,7 +67,7 @@ A powerful and interactive **content-based movie recommender system** that sugge
 
 ## 📱 Live Demo
 
-Check out the live demo here: [Movie Recommender App](https://your-demo-link.com)
+Check out the live demo here: [Movie Recommender App](https://movirecommendationsystem.streamlit.app/)
 
 
 
