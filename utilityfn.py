@@ -100,25 +100,29 @@ def draw_graph(name, lst):
 def movieDetails(movie_name):
     return df[df["original_title"] == movie_name]
 
+df = pd.read_csv("./datasets/new_movies_full.csv")
 
 def allmovies():
-    return df["original_title"].values
+    release_years=df["release_date"].apply(lambda x:x[:4]if len(str(x))>4 else " ").values
+    titles=df["title"].values
+    final=[f"{titles[i]} ({release_years[i]})" for i in range(len(titles))]
+    return final
 
 
-df = pd.read_csv("./datasets/movies.csv")
 
 
 def RecommendStory(movie):
     similarity1 = None
     with open("./models/story.pkl", "rb") as f:
         similarity1 = pickle.load(f)
-    index = df[df["original_title"] == movie].index
+    index = df[df["title"] == movie.split("(")[0][:-1]].index
     curr = similarity1[index]
     top5 = np.argsort(curr)[0, :][::-1][1:6]
     similar_rows = df[df.index.isin(top5)]
-    similar_movies = similar_rows["original_title"].values
+    similar_movies = similar_rows["title"].values
     posters = similar_rows["poster_path"].values
-    return similar_movies, posters
+    date = similar_rows["release_date"].apply(lambda x:x[:4]if len(str(x))>4 else " ").values
+    return similar_movies, posters,date
 
 
 similarity2 = None
@@ -127,13 +131,14 @@ with open("./models/cast.pkl", "rb") as f:
 
 
 def Recommendcast(movie):
-    index = df[df["original_title"] == movie].index
+    index = df[df["title"] == movie.split("(")[0][:-1]].index
     curr = similarity2[index]
     top5 = np.argsort(curr)[0, :][::-1][1:6]
     similar_rows = df[df.index.isin(top5)]
-    similar_movies = similar_rows["original_title"].values
+    similar_movies = similar_rows["title"].values
     posters = similar_rows["poster_path"].values
-    return similar_movies, posters
+    date = similar_rows["release_date"].apply(lambda x:x[:4]if len(str(x))>4 else ' ').values
+    return similar_movies, posters ,date
 
 
 similarity3 = None
@@ -142,10 +147,11 @@ with open("./models/scale.pkl", "rb") as f:
 
 
 def Recommendscale(movie):
-    index = df[df["original_title"] == movie].index
+    index = df[df["title"] == movie.split("(")[0][:-1]].index
     curr = similarity3[index]
     top5 = np.argsort(curr)[0, :][::-1][1:6]
     similar_rows = df[df.index.isin(top5)]
-    similar_movies = similar_rows["original_title"].values                              
+    similar_movies = similar_rows["title"].values                              
     posters = similar_rows["poster_path"].values
-    return similar_movies, posters
+    date = similar_rows["release_date"].apply(lambda x:x[:4]if len(str(x))>4 else '').values
+    return similar_movies, posters,date

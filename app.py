@@ -52,7 +52,7 @@ if st.session_state.show:
     if st.session_state.opt == "Data analysis":
         st.header("Analysis on Movie's dataset")
 
-        df = pd.read_csv("./datasets/combined.csv")
+        df = pd.read_csv("./datasets/sol.csv")
 
         st.subheader("Profit Analysis")
         fig = px.histogram(
@@ -371,33 +371,33 @@ if st.session_state.show:
             poster_path = None
             
             st.subheader("On the basis of Story")
-            recomm, poster_path = RecommendStory(movie)
+            recomm, poster_path,date = RecommendStory(movie)
 
             colA = st.columns(5)
             for i in range(len(colA)):
                 with colA[i]:
                     st.image(poster_path[i], width=300)
-                    st.write(recomm[i])
+                    st.write(f"{recomm[i]}({date[i]})")
 
 
             st.subheader("On the basis of Cast and crew")
             colA = st.columns(5)
-            recomm, poster_path = Recommendcast(movie)
+            recomm, poster_path,date = Recommendcast(movie)
 
             for i in range(len(colA)):
                 with colA[i]:
                     st.image(poster_path[i], width=300)
-                    st.write(recomm[i])
+                    st.write(f"{recomm[i]}({date[i]})")
 
 
             st.subheader("On the basis of Scale")
             colA = st.columns(5)
-            recomm, poster_path = Recommendscale(movie)
+            recomm, poster_path ,date= Recommendscale(movie)
 
             for i in range(len(colA)):
                 with colA[i]:
                     st.image(poster_path[i], width=300)
-                    st.write(recomm[i])
+                    st.write(f"{recomm[i]}({date[i]})")
             st.session_state.btn2 = False
 
 else:
