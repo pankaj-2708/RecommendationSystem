@@ -2,12 +2,13 @@ from fastapi import FastAPI
 import pickle
 import numpy as np
 import pandas as pd
-from datetime import date
 from huggingface_hub import hf_hub_download
+from functools import lru_cache
 
 app = FastAPI()
 
 
+@lru_cache()
 def load_models():
     model_path = hf_hub_download(
         repo_id="Pankaj121212/my-model1", filename="models/story.pkl"
@@ -31,14 +32,18 @@ def load_models():
 similarity1, similarity2, similarity3 = load_models()
 
 
-df = pd.read_csv("../datasets/new_movies_full.csv")
+@lru_cache()
+def load_dataset():
+    df_path = hf_hub_download(repo_id="Pankaj121212/dataset", filename="sol.csv")
+    return pd.read_csv(df_path)
+
+
+df = load_dataset()
 
 
 @app.get("/allmovies")
 def allmovies():
-    release_years = (
-        df["release_date"].apply(lambda x: x[:4] if len(str(x)) > 4 else " ").values
-    )
+    release_years = df["release_year"].values
     titles = df["title"].values
     final = [f"{titles[i]} ({release_years[i]})" for i in range(len(titles))]
     return final
@@ -53,11 +58,8 @@ def RecommendStory(movie):
 
     similar_movies = list(similar_rows["title"].values)
     posters = list(similar_rows["poster_path"].values)
-    date1 = list(
-        similar_rows["release_date"]
-        .apply(lambda x: x[:4] if len(str(x)) > 4 else " ")
-        .values
-    )
+    x = similar_rows["release_year"].values
+    date1 = list(int(i) for i in x)
 
     return {"similar_movies": similar_movies, "posters": posters, "date": date1}
 
@@ -70,11 +72,8 @@ def Recommendcast(movie):
     similar_rows = df[df.index.isin(top5)]
     similar_movies = list(similar_rows["title"].values)
     posters = list(similar_rows["poster_path"].values)
-    date = list(
-        similar_rows["release_date"]
-        .apply(lambda x: x[:4] if len(str(x)) > 4 else " ")
-        .values
-    )
+    x = similar_rows["release_year"].values
+    date = list(int(i) for i in x)
     return {"similar_movies": similar_movies, "posters": posters, "date": date}
 
 
@@ -86,9 +85,6 @@ def Recommendscale(movie):
     similar_rows = df[df.index.isin(top5)]
     similar_movies = list(similar_rows["title"].values)
     posters = list(similar_rows["poster_path"].values)
-    date = list(
-        similar_rows["release_date"]
-        .apply(lambda x: x[:4] if len(str(x)) > 4 else "")
-        .values
-    )
+    x = similar_rows["release_year"].values
+    date = list(int(i) for i in x)
     return {"similar_movies": similar_movies, "posters": posters, "date": date}

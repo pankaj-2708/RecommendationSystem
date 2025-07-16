@@ -9,12 +9,13 @@ import plotly.graph_objects as go
 import plotly.express as px
 import json
 import warnings
+from huggingface_hub import hf_hub_download
 
 warnings.filterwarnings("ignore")
 
 
 sd = st.sidebar
-st.set_page_config(layout="wide",page_title='Movies Recommendation System')
+st.set_page_config(layout="wide", page_title="Movies Recommendation System")
 
 
 if "show" not in st.session_state:
@@ -52,7 +53,8 @@ if st.session_state.show:
     if st.session_state.opt == "Data analysis":
         st.header("Analysis on Movie's dataset")
 
-        df = pd.read_csv("./datasets/sol.csv")
+        df_path = hf_hub_download(repo_id="Pankaj121212/dataset", filename="sol.csv")
+        df = pd.read_csv(df_path)
 
         st.subheader("Profit Analysis")
         fig = px.histogram(
@@ -369,30 +371,28 @@ if st.session_state.show:
         if st.session_state.btn2:
             recomm = None
             poster_path = None
-            
+
             st.subheader("On the basis of Story")
-            recomm, poster_path,date = RecommendStory(movie)
+            recomm, poster_path, date = RecommendStory(movie)
 
             colA = st.columns(5)
             for i in range(len(colA)):
                 with colA[i]:
                     st.image(poster_path[i], width=300)
                     st.write(f"{recomm[i]}({date[i]})")
-
 
             st.subheader("On the basis of Cast and crew")
             colA = st.columns(5)
-            recomm, poster_path,date = Recommendcast(movie)
+            recomm, poster_path, date = Recommendcast(movie)
 
             for i in range(len(colA)):
                 with colA[i]:
                     st.image(poster_path[i], width=300)
                     st.write(f"{recomm[i]}({date[i]})")
 
-
             st.subheader("On the basis of Scale")
             colA = st.columns(5)
-            recomm, poster_path ,date= Recommendscale(movie)
+            recomm, poster_path, date = Recommendscale(movie)
 
             for i in range(len(colA)):
                 with colA[i]:

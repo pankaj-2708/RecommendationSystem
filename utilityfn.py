@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import warnings
 import ast
 import requests
+
 warnings.filterwarnings("ignore")
 
 
@@ -92,22 +93,24 @@ def draw_graph(name, lst):
 
 
 def allmovies():
-    res=requests.get(f"http://127.0.0.1:8000/allmovies")
-    resT=res.json()
+    res = requests.get(f"http://127.0.0.1:8000/allmovies")
+    resT = res.json()
     return resT
 
 
 def RecommendStory(movie):
-    res=requests.get(f"http://127.0.0.1:8000/story?movie={movie}")
-    resT=res.json()
-    return resT["similar_movies"],resT["posters"],resT["date"]
+    res = requests.get(f"http://127.0.0.1:8000/story?movie={movie}")
+    resT = res.json()
+    return resT["similar_movies"], resT["posters"], resT["date"]
+
 
 def Recommendcast(movie):
-    res=requests.get(f"http://127.0.0.1:8000/cast?movie={movie}")
-    resT=res.json()
-    return resT["similar_movies"],resT["posters"],resT["date"]
+    res = requests.get(f"http://127.0.0.1:8000/cast?movie={movie}")
+    resT = res.json()
+    return resT["similar_movies"], resT["posters"], resT["date"]
+
 
 def Recommendscale(movie):
-    res=requests.get(f"http://127.0.0.1:8000/scale?movie={movie}")
-    resT=res.json()
-    return resT["similar_movies"],resT["posters"],resT["date"]
+    res = requests.get(f"http://127.0.0.1:8000/scale?movie={movie}")
+    resT = res.json()
+    return resT["similar_movies"], resT["posters"], resT["date"]
