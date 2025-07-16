@@ -1,7 +1,10 @@
+fastapi
+huggingface_hub
 matplotlib
 numpy
 pandas
 plotly
+Requests
 scipy
 seaborn
 streamlit

@@ -62,7 +62,7 @@ if st.session_state.show:
             color="hit/flop",
             text_auto=True,
             title="Profit percentage vs No of movies",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"x": "Percentage of Profit"},
         )
         fig.update_yaxes(title="Number of Movies")
@@ -71,7 +71,7 @@ if st.session_state.show:
         fig = px.pie(
             names=df["hit/flop"].value_counts().index,
             values=df["hit/flop"].value_counts().values,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             title="Percentage of movies Hit and flop",
         ).update_traces(textposition="inside")
         st.plotly_chart(fig)
@@ -85,7 +85,7 @@ if st.session_state.show:
             nbins=50,
             text_auto=True,
             color="hit/flop",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"budget": "Budget in USD($)"},
             title="No of movies vs Budget",
             height=500,
@@ -102,7 +102,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=50,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"popularity": "Popularity Score"},
             title="Popularity vs No of movies",
             height=500,
@@ -116,7 +116,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=11,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"vote_average": "Average Rating"},
             title="Average Rating vs No of movies",
             height=500,
@@ -130,7 +130,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=50,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"vote_count": "Average Votes"},
             title="Avernge No of votes vs No of movies",
             height=500,
@@ -146,7 +146,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=50,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"release_year": "Years"},
             title="Year vs No of movies",
             height=500,
@@ -162,7 +162,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=50,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"release_month": "Month"},
             title="Month vs No of movies",
             height=500,
@@ -178,7 +178,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=50,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"release_day": "Day"},
             title="Week vs No of movies",
             height=500,
@@ -195,7 +195,7 @@ if st.session_state.show:
             text_auto=True,
             color="hit/flop",
             nbins=50,
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"runtime": "Runtime in minutes"},
             title="Runtime vs No of movies",
             height=500,
@@ -213,7 +213,7 @@ if st.session_state.show:
             color="hit/flop",
             hover_name="original_title",
             title="Revenue vs Budget",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"budget": "Budget", "revenue": "Revenue"},
         )
         st.plotly_chart(fig)
@@ -227,7 +227,7 @@ if st.session_state.show:
             color="hit/flop",
             hover_name="original_title",
             title="Popularity vs Revenue",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"popularity": "Popularity", "revenue": "Revenue"},
         )
         st.plotly_chart(fig)
@@ -240,7 +240,7 @@ if st.session_state.show:
             color="hit/flop",
             hover_name="original_title",
             title="Vote_count vs Vote_average",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"vote_average": "Average Rating", "vote_count": "No of Votes"},
         )
         st.plotly_chart(fig)
@@ -253,7 +253,7 @@ if st.session_state.show:
             color="hit/flop",
             hover_name="original_title",
             title="Release Year vs Vote count",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"release_year": "Year", "vote_count": "Vote count"},
         )
         st.plotly_chart(fig)
@@ -267,7 +267,7 @@ if st.session_state.show:
             color="hit/flop",
             hover_name="original_title",
             title="Release Year vs Rating",
-            color_discrete_sequence=["blue", "orange"],
+            color_discrete_sequence=["green", "red"],
             labels={"release_year": "Year", "vote_average": "Rating"},
         )
         st.plotly_chart(fig)
