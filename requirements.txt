@@ -9,3 +9,4 @@ scipy
 seaborn
 streamlit
 datasets
+uvicorn
