@@ -10,6 +10,7 @@ import plotly.express as px
 import json
 import warnings
 from huggingface_hub import hf_hub_download
+from datasets import load_dataset
 
 warnings.filterwarnings("ignore")
 
@@ -53,9 +54,11 @@ if st.session_state.show:
     if st.session_state.opt == "Data analysis":
         st.header("Analysis on Movie's dataset")
 
-        df_path = hf_hub_download(repo_id="Pankaj121212/dataset", filename="sol.csv")
-        df = pd.read_csv(df_path)
-
+        @st.cache_data
+        def load_df():
+            return load_dataset("Pankaj121212/dataset",split='train',streaming=True).to_pandas()
+        df=load_df()
+        
         st.subheader("Profit Analysis")
         fig = px.histogram(
             df,

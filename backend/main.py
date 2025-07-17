@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from huggingface_hub import hf_hub_download
 from functools import lru_cache
-
+from datasets import load_dataset
 app = FastAPI()
 
 
@@ -33,13 +33,11 @@ similarity1, similarity2, similarity3 = load_models()
 
 
 @lru_cache()
-def load_dataset():
-    df_path = hf_hub_download(repo_id="Pankaj121212/dataset", filename="sol.csv")
-    return pd.read_csv(df_path)
+def load_dataset1():
+    return load_dataset("Pankaj121212/dataset",split='train',streaming=True).to_pandas()
 
 
-df = load_dataset()
-
+df = load_dataset1()
 
 @app.get("/allmovies")
 def allmovies():
